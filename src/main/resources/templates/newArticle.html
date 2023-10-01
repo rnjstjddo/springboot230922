@@ -1,0 +1,102 @@
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<th:block th:replace="~{/layout/indexWBoard :: setContent(~{this::content} )}">
+    <th:block th:fragment="content">
+        <!-- Post content-->
+        <article>
+
+            <br>
+            <br>
+            <div class="container">
+
+                <th:block th:if="${article.id} != null">
+                <div class="h4 pb-2 mb-4 text-primary border-bottom border-primary">
+                    게시글수정
+                </div>
+                </th:block>
+
+
+                <th:block th:if="${article.id} == null">
+                    <div class="h4 pb-2 mb-4 text-primary border-bottom border-primary">
+                        게시글등록
+                    </div>
+                </th:block>
+
+
+                <a class="btn btn-outline-success" th:href="@{/articles}">게시글목록이동</a>
+
+                <br>
+
+                <th:block th:if="${article.id} != null">
+                <div class="mb-3">
+                    번호
+                    <input class="form-control" type="text"  id="id" th:value="${article.id}" readonly/>
+                </div>
+                <br>
+                <br>
+                </th:block>
+
+                <div class="mb-3">
+                    제목
+                    <input class="form-control" type="text"  id="title" th:value="${article.title}" required/>
+                </div>
+
+                <br>
+                <br>
+
+                <div class="mb-3">
+                    <label for="content" class="form-label">내용</label>
+                    <textarea class="form-control"  id="content" rows="3"  required th:text="${article.content}"></textarea>
+                </div>
+                <br>
+
+                <th:block th:if="${article.id} != null">
+                <div class="mb-3">
+                    작성일자
+                    <input class="form-control" type="text"  id="createdAt" th:value="${#temporals.format(article.createdAt, 'yyyy-MM-dd HH:mm:ss')}" readonly/>
+                </div>
+                <br>
+                <br>
+
+                <div class="mb-3">
+                    수정일자
+                    <input class="form-control" type="text"  id="updatedAt" th:value="${#temporals.format(article.updatedAt, 'yyyy-MM-dd HH:mm:ss')}" readonly/>
+                </div>
+
+                </th:block>
+                <hr>
+                <br>
+                <div class="col-12" style="display:inline-block;text-align: center;">
+
+                    <th:block th:if="${article.id} != null">
+                        <button type="button" class="btn btn-outline-warning" id="delete-Btn">게시글 삭제하기</button>
+<!--
+                        <button type="button" class="btn btn-outline-primary" id="modify-Btn" th:onclick="|location.href='@{/new-article?id={articleId}(articleId=${article.id})}'|">게시글저장하기</button>
+-->
+                        <button type="button" class="btn btn-outline-primary" id="modify-Btn" >게시글저장하기</button>
+
+                    </th:block>
+
+                    <th:block th:if="${article.id} == null">
+                        <button type="button" class="btn btn-outline-warning" id="register-Btn">게시글 등록하기</button>
+                    </th:block>
+                </div>
+
+                </div><!-- 컨테이너 -->
+        </article>
+
+    </th:block>
+</th:block>
+
+<script th:src="@{/article.js}"></script>
+<script th:inline="javascript">
+$(document).ready(function(){
+
+});
+</script>
+
+</html>
+
+

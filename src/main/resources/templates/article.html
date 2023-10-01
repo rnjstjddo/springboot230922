@@ -1,0 +1,92 @@
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<th:block th:replace="~{/layout/indexWBoard :: setContent(~{this::content} )}">
+    <th:block th:fragment="content">
+        <!-- Post content-->
+        <article>
+
+            <br>
+            <br>
+            <div class="container">
+
+                <div class="h4 pb-2 mb-4 text-primary border-bottom border-primary">
+                    게시글조회
+                </div>
+
+                <a class="btn btn-outline-success" th:href="@{/articles}">게시글목록이동</a>
+
+                <br>
+
+                <div class="mb-3">
+                    번호
+                    <input class="form-control" type="text"  id="id" th:value="${article.id}" readonly/>
+                </div>
+                <br>
+                <br>
+
+                <div class="mb-3">
+                    제목
+                    <input class="form-control" type="text"  id="title" th:value="${article.title}" readonly/>
+                </div>
+
+
+                <br>
+                <br>
+
+                <th:block th:if="${article.author != null}">
+                <div class="mb-3">
+                    작성자
+                    <input class="form-control" type="text"  id="author" th:value="${article.author}" readonly/>
+                </div>
+
+
+                <br>
+                <br>
+                </th:block>
+
+                <div class="mb-3">
+                    <label for="content" class="form-label">내용</label>
+                    <textarea class="form-control"  id="content" rows="3"  readonly>[[${article.content}]]</textarea>
+                </div>
+                <br>
+
+                <div class="mb-3">
+                    작성일자
+                    <input class="form-control" type="text"  id="createdAt" th:value="${#temporals.format(article.createdAt, 'yyyy-MM-dd HH:mm:ss')}" readonly/>
+                </div>
+                <br>
+                <br>
+
+                <div class="mb-3">
+                    수정일자
+                    <input class="form-control" type="text"  id="updatedAt" th:value="${#temporals.format(article.updatedAt, 'yyyy-MM-dd HH:mm:ss')}" readonly/>
+                </div>
+
+                <hr>
+                <br>
+                <div class="col-12" style="display:inline-block;text-align: center;">
+
+                    <button type="button" class="btn btn-outline-warning" id="readDelete-Btn" style="display :inline-block;">게시글 삭제하기</button>
+
+                    <a class="btn btn-outline-primary" style="display :inline-block;" th:href="@{/new-article?id={articleId}(articleId=${article.id})}">게시글 수정하러 가기</a>
+
+                </div>
+
+                </div><!-- 컨테이너 -->
+        </article>
+
+    </th:block>
+</th:block>
+
+<script th:src="@{/article.js}"></script>
+<script th:inline="javascript">
+$(document).ready(function(){
+
+});
+</script>
+
+</html>
+
+

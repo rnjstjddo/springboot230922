@@ -1,0 +1,59 @@
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<th:block th:replace="~{/layout/indexWBoard :: setContent(~{this::content} )}">
+    <th:block th:fragment="content">
+        <!-- Post content-->
+        <article>
+
+            <br>
+            <br>
+            <div class="container">
+
+                <div class="h4 pb-2 mb-4 text-primary border-bottom border-primary">
+                    게시글목록
+                </div>
+
+                <a class="btn btn-outline-success" th:href="@{/new-article}">게시글등록하기</a>
+
+
+
+                <button type="button" class="btn btn-outline-success" onclick="location.href='/logout'">로그아웃</button>
+                <br>
+                <table class="table table-hover">
+                    <tr>
+                        <th scope="col" width="150px">번호</th>
+                        <th scope="col" width="300px">제목</th>
+                        <th scope="col" width="200px">작성일자</th>
+                        <th scope="col" width="200px">수정일자</th>
+
+                    </tr>
+
+                    <tr th:each="list:${articles}">
+                        <th  scope="row">[[${list.id}]]</th>
+                        <td><a th:href="@{/articles/{id}(id=${list.id})}">[[${list.title}]]</a></td>
+                        <td>[[${#temporals.format(list.createdAt, 'yyyy-MM-dd HH:mm:ss')}]]</td>
+                        <td>[[${#temporals.format(list.updatedAt, 'yyyy-MM-dd HH:mm:ss')}]]</td>
+
+                    </tr>
+                </table>
+
+
+            </div><!-- 컨테이너 -->
+        </article>
+
+    </th:block>
+</th:block>
+<script th:src="@{/article.js}"></script>
+
+<script th:src="@{/token.js}"></script>
+<script th:inline="javascript">
+$(document).ready(function(){
+
+});
+</script>
+
+</html>
+
+
